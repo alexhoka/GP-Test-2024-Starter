@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1d0ju5nk0atv"]
+
+[ext_resource type="Texture2D" uid="uid://yyw1fp4krfwx" path="res://icon.svg" id="1_4igbq"]
+[ext_resource type="Script" path="res://Button.gd" id="2_8ultm"]
+[ext_resource type="Script" path="res://CollisionShape2D.gd" id="3_ckcgu"]
+[ext_resource type="Script" path="res://CPUParticles2D.gd" id="4_32e7y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n85ul"]
+size = Vector2(127, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhkrq"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gapmc"]
+distance = -570.0
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(603, 307)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(-1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_4igbq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_n85ul")
+
+[node name="icon" type="CharacterBody2D" parent="."]
+position = Vector2(-275, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="icon"]
+texture = ExtResource("1_4igbq")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="icon/Sprite2D"]
+disable_mode = 2
+can_sleep = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="icon/Sprite2D/RigidBody2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_n85ul")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="icon"]
+shape = SubResource("RectangleShape2D_rhkrq")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -473.0
+offset_top = -176.0
+offset_right = -362.0
+offset_bottom = -145.0
+text = "Create nodes
+"
+script = ExtResource("2_8ultm")
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = -522.0
+offset_top = -230.0
+offset_right = -514.0
+offset_bottom = -214.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-522, -230)
+shape = SubResource("WorldBoundaryShape2D_gapmc")
+script = ExtResource("3_ckcgu")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-276, 27)
+emission_shape = 4
+emission_points = PackedVector2Array()
+emission_colors = PackedColorArray()
+particle_flag_align_y = true
+spread = 90.45
+gravity = Vector2(0, 0)
+initial_velocity_min = 363.64
+initial_velocity_max = 363.64
+angular_velocity_min = 421.82
+angular_velocity_max = 421.82
+script = ExtResource("4_32e7y")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
